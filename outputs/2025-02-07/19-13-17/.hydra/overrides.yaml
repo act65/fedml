@@ -1,0 +1,6 @@
+- worker.worker_id=2
+- worker.is_server=False
+- comms.ip=localhost
+- comms.port=5002
+- comms.peer_ips=localhost
+- comms.peer_ports=5000

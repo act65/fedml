@@ -1,0 +1,6 @@
+network:
+  name: MLP
+  depth: 4
+  width: 32
+  n_out: 1
+loss: regression

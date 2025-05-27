@@ -1,0 +1,10 @@
+- worker.worker_id=3
+- worker.type=FederatedWorker
+- comms.ip=localhost
+- comms.port=5003
+- comms.peer_ips=[localhost]
+- comms.peer_ports=[5000]
+- data=fesimple
+- data.silo_id=1
+- model=mlp-med
+- trainer.n_steps=200

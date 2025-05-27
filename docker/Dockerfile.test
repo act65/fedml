@@ -1,0 +1,12 @@
+FROM alpine:latest
+
+# Install dependencies
+RUN apk add --no-cache curl && \
+    mkdir -p /var/log
+
+# Copy and make script executable
+COPY scripts/log-helloworld.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/log-helloworld.sh
+
+# Set entrypoint
+CMD ["log-helloworld.sh"]

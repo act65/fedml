@@ -1,0 +1,16 @@
+[build-system]
+# XXX: If your project needs other packages to build properly, add them to this list.
+requires = ["setuptools >= 64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deai"  # This *must* match the directory name
+version = "0.1.0"  # Or your version
+description = "Your description"
+authors = [{name = "Your Name", email = "your.email@example.com"}]
+dependencies = [
+    # Your dependencies here
+]
+
+[tool.setuptools]
+packages = ["deai"] # List the packages within your project directory. In this case the directory 'deai' is a package.

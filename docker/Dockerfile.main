@@ -1,0 +1,17 @@
+FROM decentralized-base:latest
+
+ENV WORKER_ID=0
+ENV WORKER_TYPE=FederatedWorker
+ENV SILO_ID=0
+ENV PORT=5000
+ENV PRIVATE_IP=worker0
+ENV PEER_IPS=worker1,worker2
+ENV PEER_PORTS=5001,5002
+ENV DATA=simple
+ENV MODEL=mlp-small
+ENV N_STEPS=200
+
+COPY scripts /app/scripts
+
+RUN chmod +x /app/scripts/entrypoint.sh
+CMD ["/app/scripts/entrypoint.sh"]

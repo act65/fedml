@@ -1,0 +1,4 @@
+- data=femnist
+- model=cnn-small
+- trainer.n_steps=200
+- model.network.width=64

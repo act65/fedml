@@ -1,0 +1,78 @@
+version: "3.8"
+
+services:
+  federated_server:
+    image: decentralized-main:latest
+    environment:
+      - WORKER_ID=0
+      - WORKER_TYPE=FederatedServer
+      - SILO_ID=-1
+      - PORT=5000
+      - PRIVATE_IP=federated_server
+      - PEER_IPS=federated_worker1,federated_worker2,federated_evaluator
+      - PEER_PORTS=5001,5002,5003
+      - DATA=${DATA}
+      - MODEL=${MODEL}
+      - N_STEPS=${N_STEPS}
+    ports:
+      - "5000:5000"
+    networks:
+      - ml-net
+
+  federated_worker1:
+    image: decentralized-main:latest
+    environment:
+      - WORKER_ID=1
+      - WORKER_TYPE=FederatedWorker
+      - SILO_ID=0
+      - PORT=5001
+      - PRIVATE_IP=federated_worker1
+      - PEER_IPS=federated_server
+      - PEER_PORTS=5000
+      - DATA=${DATA}
+      - MODEL=${MODEL}
+      - N_STEPS=${N_STEPS}
+    ports:
+      - "5001:5001"
+    networks:
+      - ml-net
+
+  federated_worker2:
+    image: decentralized-main:latest
+    environment:
+      - WORKER_ID=2
+      - WORKER_TYPE=FederatedWorker
+      - SILO_ID=1
+      - PORT=5002
+      - PRIVATE_IP=federated_worker2
+      - PEER_IPS=federated_server
+      - PEER_PORTS=5000
+      - DATA=${DATA}
+      - MODEL=${MODEL}
+      - N_STEPS=${N_STEPS}
+    ports:
+      - "5002:5002"
+    networks:
+      - ml-net
+
+  federated_evaluator:
+    image: decentralized-main:latest
+    environment:
+      - WORKER_ID=3
+      - WORKER_TYPE=FederatedEvaluator
+      - SILO_ID=-1
+      - PORT=5003
+      - PRIVATE_IP=federated_evaluator
+      - PEER_IPS=federated_server
+      - PEER_PORTS=5000
+      - DATA=${DATA}
+      - MODEL=${MODEL}
+      - N_STEPS=${N_STEPS}
+    ports:
+      - "5003:5003"
+    networks:
+      - ml-net
+
+networks:
+  ml-net:
+    driver: bridge

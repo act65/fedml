@@ -1,0 +1,3 @@
+- data=simple
+- model=mlp-med
+- trainer.n_steps=200

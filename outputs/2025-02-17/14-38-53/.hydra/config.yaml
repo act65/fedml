@@ -1,0 +1,48 @@
+model:
+  network:
+    name: MLP
+    depth: 6
+    width: 86
+    n_out: 1
+  loss: regression
+trainer:
+  n_save_steps: 10
+  batch_size: 8
+  n_steps: 200
+  decay_steps: 1000
+  decay_rate: 0.999
+  learning_rate: 0.01
+  opt_name: adam
+  model_save_path: /tmp/deai
+worker:
+  worker_id: 2
+  type: FederatedWorker
+data:
+  name: fesimple
+  n_silos: 2
+  n_components: 1
+  silo_id: 0
+comms:
+  ip: localhost
+  port: 5002
+  peer_ips:
+  - localhost
+  peer_ports:
+  - 5000
+dp:
+  seed: 0
+  sigma: 0.001
+  clip_val: 0.1
+algorithm:
+  worker_comms_policy:
+    name: periodic
+    args:
+      send_interval: 2
+      receive_interval: 1
+  server_comms_policy:
+    name: sync
+  algorithm:
+    name: fedavg
+    server_aggregator: average
+    worker_aggregator: latest
+atest

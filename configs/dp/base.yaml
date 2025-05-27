@@ -1,0 +1,3 @@
+seed: 0
+sigma: 0.001
+clip_val: 0.1

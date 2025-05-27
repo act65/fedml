@@ -1,0 +1,10 @@
+- worker.worker_id=2
+- worker.type=FederatedWorker
+- comms.ip=localhost
+- comms.port=5002
+- comms.peer_ips=[localhost]
+- comms.peer_ports=[5000]
+- data.silo_id=0
+- data=gfemnist
+- model=cnn-small
+- trainer.n_steps=200

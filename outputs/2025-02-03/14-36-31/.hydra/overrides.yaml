@@ -1,0 +1,2 @@
+- data=femnist
+- model=cnn-small

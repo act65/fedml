@@ -1,0 +1,8 @@
+n_save_steps: 10
+batch_size: 8
+n_steps: 50
+decay_steps: 1000
+decay_rate: 0.999
+learning_rate: 0.01
+opt_name: adam
+model_save_path: /tmp/deai

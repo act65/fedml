@@ -1,0 +1,11 @@
+worker_comms_policy:
+  name: periodic
+  args:
+    send_interval: 2
+    receive_interval: 1
+server_comms_policy:
+  name: sync
+algorithm:
+  name: fedavg
+  server_aggregator: average
+  worker_aggregator: latest

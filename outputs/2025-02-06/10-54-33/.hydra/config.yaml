@@ -1,0 +1,36 @@
+model:
+  network:
+    name: MLP
+    depth: 4
+    width: 32
+    n_out: 1
+  loss: regression
+trainer:
+  n_save_steps: 10
+  batch_size: 16
+  n_steps: 200
+  send_interval: 10
+  inner:
+    decay_steps: 1000
+    decay_rate: 0.999
+    learning_rate: 0.01
+    opt_name: adam
+  outer:
+    decay_steps: 1000
+    decay_rate: 0.999
+    learning_rate: 1.0
+    opt_name: sgd
+worker:
+  ip: 127.0.0.1
+  port: 5000
+  peer_ips:
+  - 127.0.0.1
+  - 127.0.0.1
+  peer_ports:
+  - 5001
+  - 5002
+  worker_id: 0
+data:
+  name: fesimple
+  n_silos: 2
+  n_components: 1

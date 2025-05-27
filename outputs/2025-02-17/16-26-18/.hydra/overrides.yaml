@@ -1,0 +1,3 @@
+- data=fesimple
+- model=cnn-small
+- trainer.n_steps=200

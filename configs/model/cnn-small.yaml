@@ -1,0 +1,5 @@
+network:
+  name: CNN
+  depth: 3
+  width: 32
+loss: categorical

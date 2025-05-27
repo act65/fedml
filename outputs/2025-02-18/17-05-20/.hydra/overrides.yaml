@@ -1,0 +1,10 @@
+- worker.worker_id=0
+- worker.type=FederatedWorker
+- comms.ip=localhost
+- comms.port=5000
+- comms.peer_ips=[localhost,localhost]
+- comms.peer_ports=[5000,5000]
+- data.silo_id=0
+- data=simple
+- model=mlp-small
+- trainer.n_steps=20

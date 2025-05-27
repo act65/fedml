@@ -1,0 +1,8 @@
+defaults:
+  - model: mlp-small
+  - trainer: test
+  - worker: base
+  - data: simple
+  - comms: local
+  - dp: base
+  - algorithm: central-sync-avg.yaml

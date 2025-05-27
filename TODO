@@ -1,0 +1,89 @@
+## Datasets (for testing)
+- code to silo data across workers
+
+# ML core
+- support multi GPU machines / pmap
+- support model parallelism
+    - make a DistributedModel class (will have its own comms manager)
+    - 
+
+## Federated learning
+- [x] implement / test federated aggregation
+- [x] make a serialiser class. 
+- [x] refactor to be more modular
+- [x] aggregate dont wait
+- how to manage RNG in a distributed setting? (typically in centrallised federated learning, we might send the model params and the seed to the workers)
+- move to gRPC
+- add FedDiff algorithm
+
+optional improvement to FML core
+- gather analytics on GPU utilization, communication overhead, etc.
+- make sure we maximise use of GPU. move all non training code to CPU
+- add support for compression, encryption, ...
+- weight gradients by staleness
+- multi thread / parallel comms
+- robustness to outliers? use median? or mean of medians?
+- pseudo count weighted avg aggregation?
+- could move the DP to an external lib?
+- comms-manager. try to send, unless you have a newer message to send.
+- create a custom buffer class to handle filtering out old messages
+- only send if different to last message
+- docker gpu access
+- cumaltive weighted avg
+- track data reuse (using hashes?)
+
+## Models
+- implement a LLM / sMoE
+- support continual learning
+nice to have
+- DPO / RL from feedback
+- 
+
+## Deploy to AWS
+- [x] test locally using docker to run
+- [x] cloudwatch support
+- terraform tests
+    - [x] simple helloworld (spin up a few AWS instances, have them log HelloWorld, collect the logs.)
+    - terraform VPC. check comminication between instances
+- docker
+    - [x] build image
+    - [x] push to ECR
+- save to bucket after training
+- json logging
+
+Blockchain
+- Use a test blockchain (e.g., Polygon Mumbai testnet) to deploy a smart contract that averages two numbers.
+- Implement a version of FedAvg within smart contracts
+- 
+
+Other
+- https://flower.ai/docs/framework/tutorial-series-get-started-with-flower-pytorch.html
+- https://developer.hashicorp.com/terraform/tutorials/aws-get-started
+- https://www.kaggle.com/datasets/ealtman2019/ibm-transactions-for-anti-money-laundering-aml/?select=HI-Large_Trans.csv
+
+
+- simple decentralised demo
+    - provide Justin with a set of potential applications
+    - CloudFormation + EC2 + VPC for a network of devices
+    - Federated learning
+    - write a test script for data parallel training over a virtual network
+    - 
+    
+- review
+    - tools for ZKP + ML
+    - blockchain + ML related works
+    
+other
+- understand the jax.sharding.Mesh / pytorch.distributed.Mesh abstractions
+- implement a decentralised gossip algorithm
+- implement a simple communication protocol for python variables
+- implement model parallelism
+- look into strategies to handle stale gradients
+- how does the off chain networking work? it's a peer to peer network?
+
+***
+
+Good way to motivate verification?
+Demonstration of a (code injection) attack on a decentralised / federated learning system
+
+- cool example of malicious attack? medical LLM - bias towards prescribing certain drugs

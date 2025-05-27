@@ -1,0 +1,4 @@
+- data=simple
+- model=mlp-small
+- trainer.n_steps=200
+- trainer.batch_size=32
