@@ -1,3 +1,0 @@
-- data=fesimple
-- model=mlp-med
-- trainer.n_steps=200

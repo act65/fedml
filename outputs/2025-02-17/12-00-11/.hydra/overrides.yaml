@@ -1,3 +1,0 @@
-- data=gfemnist
-- model=cnn-small
-- trainer.n_steps=200
