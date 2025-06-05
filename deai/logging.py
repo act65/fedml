@@ -1,6 +1,7 @@
 import logging
 import traceback
 import functools
+import os
 
 class FlexibleLogger(logging.Logger):
     def __init__(self, name, level=logging.INFO):
@@ -23,13 +24,16 @@ class PrintLogger(FlexibleLogger):
         self.addHandler(ch)
 
 class FileLogger(FlexibleLogger):
-    def __init__(self, name, level=logging.INFO, log_file_path=None):
+    def __init__(self, name, log_file_path, level=logging.INFO): # name and log_file_path swapped, level has default
         super().__init__(name, level)
 
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-        if log_file_path is None:
-            log_file_path = f'{name}.log'  # Default log file name based on logger name
+        # Create the directory if it doesn't exist
+        log_dir = os.path.dirname(log_file_path)
+        if log_dir and not os.path.exists(log_dir):
+            os.makedirs(log_dir)
+
         fh = logging.FileHandler(log_file_path)
         fh.setFormatter(formatter)
         self.addHandler(fh)

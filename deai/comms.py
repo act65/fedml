@@ -28,7 +28,7 @@ class CommunicationManager:
     Handles all peer-to-peer communication concerns.
     This communication uses a simple REST API to send and receive messages.
     """
-    def __init__(self, ip, port, peer_ips, peer_ports):
+    def __init__(self, ip, port, peer_ips, peer_ports, start_server=True): # Added start_server
         self.app = Flask(__name__)
         self.ip = ip
         self.port = port
@@ -38,14 +38,21 @@ class CommunicationManager:
         # self.executor = ThreadPoolExecutor(max_workers=4)
         self.message_queue = []
         self.serializer = PyTreeSerializer()
-        self.logger = FileLogger(f"logs/comms-{self.ip}-{self.port}")
+        # Provide a simple name for the logger and the full path for the log file
+        logger_name = f"comms-{self.ip}-{self.port}"
+        log_file_path = f"logs/{logger_name}.log"
+        self.logger = FileLogger(logger_name, log_file_path)
         
         self.app.add_url_rule('/push', 'receive', 
                             self.receive, methods=['POST'])
 
-        # Start server in background thread
-        self.server_thread = threading.Thread(target=self.run_server)
-        self.server_thread.start()
+        if start_server:
+            # Start server in background thread
+            self.server_thread = threading.Thread(target=self.run_server)
+            self.server_thread.daemon = True # Ensure thread exits when main process exits
+            self.server_thread.start()
+        else:
+            self.server_thread = None
 
     def run_server(self):
         self.app.run(host='0.0.0.0', port=self.port)
@@ -90,8 +97,11 @@ class CommunicationManager:
         Shuts down the server thread and the thread pool executor.
         """
         self.logger.info("Shutting down CommunicationManager...")
-        self._executor.shutdown(wait=True)  # Wait for all send tasks to complete
-        # No explicit shutdown for server_thread as it's a daemon thread and will exit with the main thread
+        # self._executor.shutdown(wait=True) # Executor is not part of CM anymore
+        if self.server_thread and self.server_thread.is_alive():
+            # This is tricky for Flask's dev server. For now, rely on daemon thread.
+            # In a real app, a proper shutdown mechanism for the server would be needed.
+            self.logger.info("Server thread is a daemon and will shut down with the main process.")
         self.logger.info("CommunicationManager shutdown complete.")
 
 
